@@ -1,10 +1,17 @@
 import asyncio
 import aiohttp
 from shared.config import VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE, VK_AUTOPOST_INTERVAL, logger
+from shared.utils import load_items, format_autopost_message
 from shared.vk_api import send_message
 
 async def autopost_loop():
     """Send autopost messages at regular intervals"""
+    # realizer for itemsautopost
+    # items = load_items()
+    # if not items:
+    #     logger.error("Не удалось загрузить вещи. Автопост не будет работать.")
+    #     return
+    # message = format_autopost_message(items)
     async with aiohttp.ClientSession() as session:
         while True:
             try:

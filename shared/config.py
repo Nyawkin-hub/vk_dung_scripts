@@ -27,9 +27,13 @@ def validate_env_var(name: str, required: bool = True, is_int: bool = False) -> 
 
 # environment variables from .env file
 TOKEN = validate_env_var("VK_TOKEN")
-VK_AUTOBAFF_PEER_ID = validate_env_var("VK_AUTOPBAFF_PEER_ID", is_int=True)
+VK_AUTOBAFF_PEER_ID = validate_env_var("VK_AUTOBAFF_PEER_ID", is_int=True)
 VK_AUTOPOST_PEER_ID = validate_env_var("VK_AUTOPOST_PEER_ID", is_int=True)
 VK_AUTOPOST_MESSAGE = validate_env_var("VK_AUTOPOST_MESSAGE")
 VK_API_VERSION = validate_env_var("VK_API_VERSION", required=False) or "5.131"
 VK_AUTOPOST_INTERVAL = int(os.getenv("AUTOPOST_INTERVAL", 10800))  
 VK_TRIGGERBAFF_INTERVAL = int(os.getenv("TRIGGERBAFF_INTERVAL", 65)) 
+
+CHECK_PEER_ID = validate_env_var("CHECK_PEER_ID", is_int=True)
+WATCHER_BOT_ID = validate_env_var("WATCHER_BOT_ID", is_int=True)
+ITEMS_FILE = validate_env_var("ITEMS_FILE", required=False) or "items.json"
