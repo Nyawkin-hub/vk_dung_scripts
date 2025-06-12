@@ -23,19 +23,20 @@ project_root/
 │
 ├── scripts/                 # Main executable scripts
 │   ├── __init__.py
-│   ├── triggerbaff.py      # Trigger listening and responding bot
+│   ├── triggerbaff.py      # Trigger handler
 │   ├── autopost.py         # Scheduled autoposting script
 │   └── runner.py           # Unified launcher for multiple scripts concurrently
 │
 ├── shared/                 # Shared libraries and utilities
 │   ├── __init__.py
-│   ├── vk_api.py           # VK API wrapper functions (e.g., send_message, longpoll params)
+│   ├── utils.py            # Message sender function from queue
+│   ├── vk_api.py           # VK API wrapper functions 
 │   ├── triggers.py         # Trigger loader and management
 │   ├── config.py           # Configuration loader from environment variables
 │   └── logpoll.py          # Long polling listener logic
 │
 ├── .env                    # Environment variables (not committed to repository)
-├── requirements.txt         # Python dependencies
+├── requirements.txt        # Python dependencies
 └── README.md               # Project documentation
 ```
 
@@ -46,13 +47,18 @@ project_root/
 Create a `.env` file in the project root with the following variables:
 
 ```ini
-VK_TOKEN="your_vk_api_token"
-VK_PEER_ID=123456789                 # Peer ID for triggerbaff chat
-VK_AUTOPOST_PEER_ID=987654321        # Peer ID for autopost chat
-VK_AUTOPOST_MESSAGE="Your autopost message text"
-TRIGGER_hello="Hi there! How can I help you?"
-TRIGGER_blessing="Blessing is active, wait 61 seconds before next."
+VK_TOKEN = ""
+VK_AUTOPBAFF_PEER_ID = 2000000XXX
+VK_AUTOPOST_PEER_ID = 2000000XXX
+VK_AUTOPOST_MESSAGE = "
+Hello, this is an automated post!
+"
+VK_API_VERSION = "5.131"
+AUTOPOST_INTERVAL = 3600
+TRIGGERBAFF_INTERVAL = 60
+TRIGGER_example = "Replied this text on message example"
 # Add additional TRIGGER_<keyword>=<response> pairs as needed
+# you can use any language
 ```
 
 **Note**: Ensure the `.env` file is not committed to version control (e.g., add it to `.gitignore`).
@@ -101,15 +107,6 @@ Use the runner script to launch both `triggerbaff` and `autopost` simultaneously
 ```bash
 python3 -m scripts.runner
 ```
-
----
-
-## Development Notes
-
-- **Triggers Management**: Triggers are dynamically loaded from `.env` variables prefixed with `TRIGGER_`.
-- **Rate Limiting**: The `triggerbaff` bot enforces a 61-second cooldown between messages to comply with VK API rate limits.
-- **Extensibility**: Add new scripts to the `scripts/` directory and shared utilities to the `shared/` directory to expand functionality.
-- **Logging**: Currently uses minimal console output. Enhanced logging integration is planned for better diagnostics.
 
 ---
 

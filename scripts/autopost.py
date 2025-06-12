@@ -1,17 +1,26 @@
 import asyncio
 import aiohttp
-import time
+from shared.config import VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE, VK_AUTOPOST_INTERVAL, logger
 from shared.vk_api import send_message
-from shared.config import VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE
 
 async def autopost_loop():
+    """Send autopost messages at regular intervals"""
     async with aiohttp.ClientSession() as session:
         while True:
-            print("Отправка сообщения в", time.strftime("%X"))
-            await send_message(session, VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE)
-            print("Ждем 15 секунд")
-            await asyncio.sleep(15)  # 3 hours (10800 seconds)
+            try:
+                await send_message(session, VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE)
+                logger.info(f"Msg {VK_AUTOPOST_MESSAGE} send in peer_id={VK_AUTOPOST_PEER_ID}")
+            except Exception as e:
+                logger.error(f"Error in autopost_loop: {e}")
+            await asyncio.sleep(VK_AUTOPOST_INTERVAL)
+
+async def main():
+    """Main function to start the autopost loop"""
+    try:
+        await autopost_loop()
+    except asyncio.CancelledError:
+        logger.info("Autopost loop cancelled")
+        raise
 
 if __name__ == "__main__":
-    print("=== Запуск автопоста ===")
-    asyncio.run(autopost_loop())
+    asyncio.run(main())
