@@ -1,6 +1,6 @@
 import asyncio
 import aiohttp
-from shared.logpoll import long_poll_listener
+from shared.longpoll import long_poll_listener
 from shared.triggers import load_triggers
 from shared.vk_api import send_message
 from shared.config import PEER_ID

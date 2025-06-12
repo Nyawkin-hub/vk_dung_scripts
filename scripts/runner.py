@@ -2,7 +2,7 @@ import asyncio
 import time
 import aiohttp
 
-from shared.logpoll import long_poll_listener
+from shared.longpoll import long_poll_listener
 from shared.vk_api import send_message
 from shared.config import VK_AUTOPOST_PEER_ID, VK_AUTOPOST_MESSAGE, PEER_ID
 from shared.triggers import load_triggers
