@@ -2,13 +2,14 @@ import asyncio
 import aiohttp
 from scripts.autopost import autopost_loop
 from scripts.triggerbaff import main as triggerbaff_main
+from scripts.item_payment import main as item_payment_main
 from shared.config import logger
 
 async def main():
     """Start the main application loop."""
     async with aiohttp.ClientSession() as session:
         try:
-            await asyncio.gather(autopost_loop(), triggerbaff_main())
+            await asyncio.gather(autopost_loop(), triggerbaff_main(), item_payment_main())
         except asyncio.CancelledError:
             logger.info("Program cancelled")
             raise
