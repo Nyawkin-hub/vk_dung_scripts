@@ -9,7 +9,7 @@ async def get_long_poll_params(session: aiohttp.ClientSession) -> dict | None:
         async with session.get("https://api.vk.com/method/messages.getLongPollServer", params=params) as resp:
             data = await resp.json()
             if "error" in data:
-                logger.error(f"Erroe API in get_long_poll_params: {data['error']}")
+                logger.error(f"Error API in get_long_poll_params: {data['error']}")
                 return None
             return data.get("response")
     except Exception as e:

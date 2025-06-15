@@ -27,7 +27,7 @@ def validate_env_var(name: str, required: bool = True, is_int: bool = False) -> 
 
 # environment variables from .env file
 TOKEN = validate_env_var("VK_TOKEN")
-VK_AUTOBAFF_PEER_ID = validate_env_var("VK_AUTOPBAFF_PEER_ID", is_int=True)
+VK_AUTOBAFF_PEER_ID = validate_env_var("VK_AUTOBAFF_PEER_ID", is_int=True)
 VK_AUTOPOST_PEER_ID = validate_env_var("VK_AUTOPOST_PEER_ID", is_int=True)
 VK_AUTOPOST_MESSAGE = validate_env_var("VK_AUTOPOST_MESSAGE")
 VK_API_VERSION = validate_env_var("VK_API_VERSION", required=False) or "5.131"
